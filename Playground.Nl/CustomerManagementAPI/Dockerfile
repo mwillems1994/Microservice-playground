@@ -4,6 +4,7 @@ WORKDIR /app
 # Copy necessary files and restore as distinct layer
 COPY CustomerManagementAPI.Nl/CustomerManagementAPI.Nl.csproj ./CustomerManagementAPI.Nl/
 COPY CustomerManagementAPI.Database/CustomerManagementAPI.Database.csproj ./CustomerManagementAPI.Database/
+COPY CustomerManagementAPI.Services/CustomerManagementAPI.Services.csproj ./CustomerManagementAPI.Services/
 
 #WORKDIR ./CustomerManagementAPI.Nl
 RUN dotnet restore CustomerManagementAPI.Nl/

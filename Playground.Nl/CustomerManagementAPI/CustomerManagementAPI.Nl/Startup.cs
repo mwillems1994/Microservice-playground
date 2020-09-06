@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,10 @@ using Microsoft.Extensions.HealthChecks;
 using Microsoft.OpenApi.Models;
 using Pitstop.Infrastructure.Messaging.Configuration;
 using Playground.Nl.CustomerManagementAPI.Database.Context;
+using Playground.Nl.CustomerManagementAPI.Database.Models;
+using Playground.Nl.CustomerManagementAPI.Nl.Helpers;
+using Playground.Nl.CustomerManagementAPI.Services.Extensions;
+using Playground.Nl.CustomerManagementAPI.Services.Helpers;
 using Serilog;
 
 namespace Playground.Nl.CustomerManagementAPI.Nl
@@ -30,9 +35,15 @@ namespace Playground.Nl.CustomerManagementAPI.Nl
                 options.UseSqlServer(
                     sqlConnectionString, 
                     o => o.MigrationsAssembly("Playground.Nl.CustomerManagementAPI.Database")));
+            
+            services.AddIdentity<Customer, IdentityRole>()
+                .AddEntityFrameworkStores<CustomerManagementDBContext>()
+                .AddDefaultTokenProviders();
 
             // add messagepublisher
             services.UseRabbitMQMessagePublisher(_configuration);
+            
+            services.AddScoped<IUserPrincipalAccessor, UserPrincipalAccessor>();
 
             // Add framework services
             services
@@ -44,6 +55,8 @@ namespace Playground.Nl.CustomerManagementAPI.Nl
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CustomerManagement API", Version = "v1" });
             });
+            
+            services.AddCustomServices();
             
             services.AddHealthChecks(checks =>
             {

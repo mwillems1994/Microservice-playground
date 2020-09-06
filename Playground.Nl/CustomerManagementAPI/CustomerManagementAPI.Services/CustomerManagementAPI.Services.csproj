@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyName>Playground.Nl.CustomerManagementAPI.Services</AssemblyName>
+        <RootNamespace>Playground.Nl.CustomerManagementAPI.Services</RootNamespace>
+        <LangVersion>8.0</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.5" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.5" />
+        <PackageReference Include="Pitstop.Infrastructure.Messaging" Version="2.7.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CustomerManagementAPI.Database\CustomerManagementAPI.Database.csproj" />
+    </ItemGroup>
+
+</Project>

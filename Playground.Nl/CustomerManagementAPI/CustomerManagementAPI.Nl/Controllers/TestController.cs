@@ -1,5 +1,8 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Pitstop.Infrastructure.Messaging;
+using Playground.Nl.CustomerManagementAPI.Services.Events;
 
 namespace Playground.Nl.CustomerManagementAPI.Nl.Controllers
 {
@@ -8,9 +11,19 @@ namespace Playground.Nl.CustomerManagementAPI.Nl.Controllers
     [Route("/api/[controller]")]
     public class TestController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Test()
+        private readonly IMessagePublisher _messagePublisher;
+
+        public TestController(IMessagePublisher messagePublisher)
         {
+            _messagePublisher = messagePublisher;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Test()
+        {
+            var e = new CustomerRegistered();
+            await _messagePublisher.PublishMessageAsync(e.MessageType, e , "");
+
             return Ok(new
             {
                 Foo = "Foo",

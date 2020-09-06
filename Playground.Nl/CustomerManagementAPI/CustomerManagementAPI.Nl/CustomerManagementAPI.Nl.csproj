@@ -32,6 +32,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CustomerManagementAPI.Database\CustomerManagementAPI.Database.csproj" />
+      <ProjectReference Include="..\CustomerManagementAPI.Services\CustomerManagementAPI.Services.csproj" />
     </ItemGroup>
 
     <ItemGroup>
