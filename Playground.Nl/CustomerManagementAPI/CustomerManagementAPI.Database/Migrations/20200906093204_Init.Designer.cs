@@ -9,7 +9,7 @@ using Playground.Nl.CustomerManagementAPI.Database.Context;
 
 namespace Playground.Nl.CustomerManagementAPI.Database.Migrations
 {
-    [DbContext(typeof(CustomerManagementDBContext))]
+    [DbContext(typeof(CustomerManagementDbContext))]
     [Migration("20200906093204_Init")]
     partial class Init
     {

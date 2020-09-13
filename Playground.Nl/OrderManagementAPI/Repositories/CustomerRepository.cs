@@ -1,14 +1,14 @@
 using System.Linq;
-using Playground.Nl.CustomerManagementAPI.Database.Context;
-using Playground.Nl.CustomerManagementAPI.Database.Models;
-using Playground.Nl.CustomerManagementAPI.Services.Extensions;
-using Playground.Nl.CustomerManagementAPI.Services.Helpers;
+using Playground.Nl.OrderManagementAPI.Nl.Context;
+using Playground.Nl.OrderManagementAPI.Nl.DbModels;
+using Playground.Nl.OrderManagementAPI.Nl.Extensions;
+using Playground.Nl.OrderManagementAPI.Nl.Helpers;
 
-namespace Playground.Nl.CustomerManagementAPI.Services.Repositories
+namespace Playground.Nl.OrderManagementAPI.Nl.Repositories
 {
     public class CustomerRepository : BaseRepository<Customer>
     {
-        public CustomerRepository(CustomerManagementDbContext db, IUserPrincipalAccessor userPrincipalAccessor) : base(
+        public CustomerRepository(OrderManagementDbContext db, IUserPrincipalAccessor userPrincipalAccessor) : base(
             db, userPrincipalAccessor)
         {
         }
@@ -40,7 +40,7 @@ namespace Playground.Nl.CustomerManagementAPI.Services.Repositories
         {
             if (options.Id.IsNotNullOrEmpty())
             {
-                customers = customers.Where(u => u.Id == options.Id);
+                customers = customers.Where(u => u.CustomerId == options.Id);
             }
 
             return customers;

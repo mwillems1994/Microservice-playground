@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Serilog;
 
-namespace Playground.Nl.CustomerManagementAPI.Nl
+namespace Playground.Nl.OrderManagementAPI.Nl
 {
     public class Program
     {
@@ -13,7 +13,10 @@ namespace Playground.Nl.CustomerManagementAPI.Nl
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseSerilog()
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddHostedService<OrderManager>();
+                })
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

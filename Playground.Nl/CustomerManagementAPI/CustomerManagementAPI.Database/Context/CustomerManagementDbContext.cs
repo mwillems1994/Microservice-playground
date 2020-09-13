@@ -6,9 +6,9 @@ using Polly;
 
 namespace Playground.Nl.CustomerManagementAPI.Database.Context
 {
-    public class CustomerManagementDBContext : IdentityDbContext<Customer>
+    public class CustomerManagementDbContext : IdentityDbContext<Customer>
     {
-        public CustomerManagementDBContext(DbContextOptions<CustomerManagementDBContext> options) : base(options)
+        public CustomerManagementDbContext(DbContextOptions<CustomerManagementDbContext> options) : base(options)
         {
         }
 

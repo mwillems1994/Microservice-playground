@@ -6,14 +6,10 @@
 version: '3'
 services:
 
-  vehiclemanagementapi:
-    ports:
-      - "5000:5000"
-
   customermanagementapi:
     ports:
       - "5100:5100"
 
-  workshopmanagementapi:
+  ordermanagementapi:
     ports:
       - "5200:5200"

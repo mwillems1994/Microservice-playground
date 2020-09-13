@@ -9,11 +9,11 @@ namespace Playground.Nl.CustomerManagementAPI.Services.Services
     [DiClass]
     public abstract class BaseService
     {
-        private readonly CustomerManagementDBContext _db;
+        private readonly CustomerManagementDbContext _db;
         internal readonly ClaimsPrincipal? _user;
 
         public BaseService(
-            CustomerManagementDBContext db,
+            CustomerManagementDbContext db,
             IUserPrincipalAccessor userPrincipalAccessor)
         {
             _db = db;

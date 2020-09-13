@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagementAPI.Nl", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagementAPI.Services", "CustomerManagementAPI\CustomerManagementAPI.Services\CustomerManagementAPI.Services.csproj", "{A0F62ADA-A08B-47FE-A3D8-A5BCD68E7220}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderManagementAPI", "OrderManagementAPI", "{41A65075-FD14-4793-9F0B-5EEB750DE250}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagementAPI", "OrderManagementAPI\OrderManagementAPI.csproj", "{3A1CF5C6-49D4-4941-9841-F8BC36CAD5D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,7 @@ Global
 		{1CDFC68B-C89F-4F2D-83F9-A9D95B03A882} = {F9C717A0-CEDC-4738-8806-963CC42EA409}
 		{6EF2BBB2-DAC4-4F47-A1E5-030F190925F5} = {F9C717A0-CEDC-4738-8806-963CC42EA409}
 		{A0F62ADA-A08B-47FE-A3D8-A5BCD68E7220} = {F9C717A0-CEDC-4738-8806-963CC42EA409}
+		{3A1CF5C6-49D4-4941-9841-F8BC36CAD5D3} = {41A65075-FD14-4793-9F0B-5EEB750DE250}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1CDFC68B-C89F-4F2D-83F9-A9D95B03A882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -31,5 +36,9 @@ Global
 		{A0F62ADA-A08B-47FE-A3D8-A5BCD68E7220}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0F62ADA-A08B-47FE-A3D8-A5BCD68E7220}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0F62ADA-A08B-47FE-A3D8-A5BCD68E7220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A1CF5C6-49D4-4941-9841-F8BC36CAD5D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A1CF5C6-49D4-4941-9841-F8BC36CAD5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A1CF5C6-49D4-4941-9841-F8BC36CAD5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A1CF5C6-49D4-4941-9841-F8BC36CAD5D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

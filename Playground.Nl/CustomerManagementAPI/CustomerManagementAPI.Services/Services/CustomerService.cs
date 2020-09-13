@@ -20,7 +20,7 @@ namespace Playground.Nl.CustomerManagementAPI.Services.Services
         private readonly IMessagePublisher _messagePublisher;
 
         public CustomerService(
-            CustomerManagementDBContext db,
+            CustomerManagementDbContext db,
             IUserPrincipalAccessor userPrincipalAccessor,
             UserManager<Customer> userManager,
             IMessagePublisher messagePublisher
@@ -35,7 +35,7 @@ namespace Playground.Nl.CustomerManagementAPI.Services.Services
             var customer = model.MapToCustomerModel();
 
             var result = await _userManager.CreateAsync(customer, model.Password);
-
+            
             if (!result.Succeeded)
             {
                 throw new CustomException(result.Errors.Select(error => new CustomExceptionMessage

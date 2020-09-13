@@ -50,6 +50,17 @@ services:
       - "5100:5100"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+        
+  ordermanagementapi:
+    image: Playground.Nl/ordermanagementapi:1.0
+    build: OrderManagementAPI
+    depends_on:
+      - rabbitmq
+      - sqlserver
+    ports:
+      - "5200:5200"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
 
 volumes:
   sqlserverdata:

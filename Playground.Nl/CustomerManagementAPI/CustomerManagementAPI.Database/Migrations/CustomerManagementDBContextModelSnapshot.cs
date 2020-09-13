@@ -8,7 +8,7 @@ using Playground.Nl.CustomerManagementAPI.Database.Context;
 
 namespace Playground.Nl.CustomerManagementAPI.Database.Migrations
 {
-    [DbContext(typeof(CustomerManagementDBContext))]
+    [DbContext(typeof(CustomerManagementDbContext))]
     partial class CustomerManagementDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

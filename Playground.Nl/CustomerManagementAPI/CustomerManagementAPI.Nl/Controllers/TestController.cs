@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pitstop.Infrastructure.Messaging;
 using Playground.Nl.CustomerManagementAPI.Services.Events;
+using Serilog;
 
 namespace Playground.Nl.CustomerManagementAPI.Nl.Controllers
 {
@@ -23,6 +24,7 @@ namespace Playground.Nl.CustomerManagementAPI.Nl.Controllers
         {
             var e = new CustomerRegistered();
             await _messagePublisher.PublishMessageAsync(e.MessageType, e , "");
+            Log.Information("Test log");
 
             return Ok(new
             {

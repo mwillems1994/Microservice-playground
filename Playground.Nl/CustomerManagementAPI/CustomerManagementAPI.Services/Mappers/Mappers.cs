@@ -23,6 +23,7 @@ namespace Playground.Nl.CustomerManagementAPI.Services.Mappers
             City = model.City
         };
         
+        // TODO: implement automapper
         public static CustomerRegistered MapToCustomerRegistered(this Customer command) => new CustomerRegistered
         {
             CustomerId = command.Id,

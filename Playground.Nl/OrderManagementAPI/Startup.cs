@@ -1,51 +1,49 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Serilog;
 using Microsoft.Extensions.HealthChecks;
 using Microsoft.OpenApi.Models;
 using Pitstop.Infrastructure.Messaging.Configuration;
-using Playground.Nl.CustomerManagementAPI.Database.Context;
-using Playground.Nl.CustomerManagementAPI.Database.Models;
-using Playground.Nl.CustomerManagementAPI.Nl.Helpers;
-using Playground.Nl.CustomerManagementAPI.Services.Extensions;
-using Playground.Nl.CustomerManagementAPI.Services.Helpers;
-using Serilog;
+using Playground.Nl.OrderManagementAPI.Nl.Context;
+using Playground.Nl.OrderManagementAPI.Nl.Extensions;
+using Playground.Nl.OrderManagementAPI.Nl.Helpers;
 
-namespace Playground.Nl.CustomerManagementAPI.Nl
+namespace Playground.Nl.OrderManagementAPI.Nl
 {
     public class Startup
     {
         private readonly IConfiguration _configuration;
-
+        
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-        
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // add DBContext
-            var sqlConnectionString = _configuration.GetConnectionString("CustomerManagementCN");
-            services.AddDbContext<CustomerManagementDbContext>(options => 
-                options.UseSqlServer(
-                    sqlConnectionString, 
-                    o => o.MigrationsAssembly("Playground.Nl.CustomerManagementAPI.Database")));
+            services.AddCustomServices();
             
-            services.AddIdentity<Customer, IdentityRole>()
-                .AddEntityFrameworkStores<CustomerManagementDbContext>()
-                .AddDefaultTokenProviders();
-
+            // add DBContext
+            var sqlConnectionString = _configuration.GetConnectionString("OrderManagementCN");
+            services.AddDbContext<OrderManagementDbContext>(options => options.UseSqlServer(sqlConnectionString));
+            
             // add messagepublisher
             services.UseRabbitMQMessagePublisher(_configuration);
-
+            
+            // add messagehandler
+            services.UseRabbitMQMessageHandler(_configuration);
+            
             services.AddScoped<IUserPrincipalAccessor, UserPrincipalAccessor>();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            // Add framework services
+            // Add framework services.
             services
                 .AddMvc(options => options.EnableEndpointRouting = false)
                 .AddNewtonsoftJson();
@@ -53,15 +51,13 @@ namespace Playground.Nl.CustomerManagementAPI.Nl
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CustomerManagement API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "OrderManagement API", Version = "v1" });
             });
-            
-            services.AddCustomServices();
             
             services.AddHealthChecks(checks =>
             {
                 checks.WithDefaultCacheDuration(TimeSpan.FromSeconds(1));
-                checks.AddSqlCheck("CustomerManagementCN", _configuration.GetConnectionString("CustomerManagementCN"));
+                checks.AddSqlCheck("OrderManagementCN", _configuration.GetConnectionString("OrderManagementCN"));
             });
         }
 
@@ -83,13 +79,13 @@ namespace Playground.Nl.CustomerManagementAPI.Nl
             // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CustomerManagement API - v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "OrderManagement API - v1");
             });
 
             // auto migrate db
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                scope.ServiceProvider.GetService<CustomerManagementDbContext>().MigrateDb();
+                scope.ServiceProvider.GetService<OrderManagementDbContext>().MigrateDb();
             }
         }
     }
